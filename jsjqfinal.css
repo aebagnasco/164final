@@ -1,0 +1,81 @@
+body {
+  font-family: "Source Sans Pro", sans-serif;
+  background-color: #fff;
+}
+
+h1 {
+    color: #48484A;
+}
+.todoapp {
+  border: 1px solid #c8c9ca;
+  padding: 15px;
+  margin: 20px auto;
+  border-radius: 10px;
+  max-width: 600px;
+  height: 630px;
+}
+
+.taskbar {
+margin: auto;
+text-align: center;
+}
+
+#list {
+    margin: 0 auto;
+}
+
+.accordion {
+    max-width: 600px;
+    max-height: 300px;
+}
+
+.accordion .contentBx {
+    position: relative;
+    margin: 10px 20px;
+}
+
+.accordion .contentBx .label {
+    position: relative;
+    padding: 10px;
+    background: #48484A;
+    color: #fff;
+    cursor: pointer;
+}
+
+.accordion .contentBx .label::before {
+    content: '+';
+    position: absolute;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    font-size: 1.5em;
+}
+
+.accordion .contentBx.active .label::before {
+    content: '-';
+    
+}
+
+.accordion .contentBx .content {
+    position: relative;
+    padding: 10px;
+    height: 0;
+    overflow: hidden;
+    transition: 0.5s;
+}
+
+.accordion .contentBx.active .content {
+    height: 150px;
+    padding: 10px;
+}
+
+
+
+#task_list {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    border-radius: 5px;
+    height: 200px;
+}

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<!-- Anna Bagnasco WEBD 164  -->
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To Do List</title>
+    <link rel="stylesheet" href="jsjqfinal.css">
+</head>
+<body>
+<div class="todoapp">
+<h1>To-Do List</h1>
+<div class="accordion">
+    <div class ="contentBx">
+        <div class="label">What is this app?</div>
+        <div class="content">
+        <p>This To-Do List app saves your list items locally on your computer thanks to localStorage. Due to localStorage's capabilities, you won't be able to see your To-Do List on another device or even in another browser on the same device. </p>
+        </div>
+    </div>
+    <div class ="contentBx">
+        <div class="label">How should I use this app?</div>
+        <div class="content">
+        <p>Your cursor is placed in the text input called 'Task.' Add your to-do tasks by clicking 'Add Task' button or clear the tasks by clicking the 'Clear' button (note: clearing the tasks will clear <i>all</i> the tasks) You could even add quotes you hear during the day that you don't want to forget or type in a grocery list. </p>
+        </div>
+    </div>
+    <div class ="contentBx">
+        <div class="label">Can I come back to this app to find my task items?</div>
+        <div class="content">
+        <p>Yup! Because your computer stores your tasks to your localStorage, when you want to see your previous tasks, just as long as you haven't previously cleared your tasks. </p>
+        </div>
+    </div>
+</div>
+    
+
+<div class="taskbar"> 
+<input type ="text" id="tostore" placeholder="Task">
+
+<button type="submit" id="add" onclick="return storeTasks();">Add Task</button>
+
+<button id="clear" onclick="return removeTasks();">Clear</button>
+</div>
+
+<section id="list">
+<textarea id="task_list" rows="6" cols="50" placeholder="Tasks to complete"></textarea>
+
+</section>
+</div>
+<script>
+    
+//NOTE: I did not add jQuery to this app, as I am still just feeling comfortable with JavaScript. In a course I took over the summer, we used Bootstrap and wrapping my head around jQuery was difficult. I feel good about where I am at, considering this class was a huge challenge with its quick pace. I'm still proud with the final result and understand that improvement simply comes from practice and observation. But I notice now I can at least grasp how others define their JavaScript logic and can follow along when reading code much faster than before. Thanks for your support throughout these 8 weeks! 
+    
+    
+    
+       
+    
+    
+//this constant variable correlates to our accordion widgets at the top. I could have done jQuery but am more comfortable with CSS per my previous html coursework. this constant gets our contentBx class and performs a loop around each of the content boxes in our accordion. it listens for a click on each of the context boxes and then performs a toggle function for the items that are active. 
+    
+    const accordion = document.getElementsByClassName('contentBx');
+    for (i = 0; i<accordion.length; i++) {
+        accordion[i].addEventListener('click', function(){
+            this.classList.toggle('active')
+        })
+        
+    }
+
+//removeTasks clears out the localStorage by using the inherent removeItem (namely the user's tasks) and then returns the cursor to the input text and also removes any value in the input as well as in the task list 
+
+    function removeTasks() {
+        var clearTasks = localStorage.removeItem('tasks');
+        document.getElementById('tostore').focus();
+        document.getElementById('tostore').value = "";
+        document.getElementById('task_list').innerHTML = "";
+    }
+    
+    
+//    the showTasks function previously had a button correlated with it but I took the button off after it became redundant. as a user, I wanted the tasks to show immediately after adding them instead of clicking a button to show them. However, I kept this function in in order to show the tasks in the textarea by manipulating the innerHTML to equal that of what is in the local storage (getItem).
+    
+    function showTasks () {
+        const tasks = localStorage.getItem('tasks');
+        document.getElementById('task_list').innerHTML = tasks;
+    }
+    
+    
+//    storeTasks comes from our button Add Task. the function below gets the value from the input type tostore. this is defined as a constant variable because we will always need it. the currTasks variable retrieves the data from the localStorage based on the tasks that are inside the string. immediately the cursor is placed inside the input type tostore (.focus()) and it also returns to an empty string each time the user adds a task. the if statement follows the logic that if task (the tostore input value) is an empty string or is null, the user is alerted with a message to please enter a task. else, if there are currTasks in the localStorage, it communicates to the localStorage to set the item to the tasks, currTasks and the newly added task. the use of the "\n" adds a line to the list so each task is not just separated by commas. each time the user storeTasks, it shows immediately by calling the showTask function defined above. else, if it is the first time a user is storing a task, the local storage is set to store the task and showTask immediately in the textarea after adding the task (storeTasks) 
+
+    function storeTasks() {
+        const task = document.getElementById('tostore').value;
+        var currTasks = localStorage.getItem('tasks');
+        document.getElementById('tostore').focus();
+        document.getElementById('tostore').value = "";
+
+        if (task == '' || null) {
+            alert("Please enter a task");
+        } 
+        else {
+            if (currTasks != null) {
+                localStorage.setItem('tasks', currTasks + "\n" + task);
+                showTasks();
+                }
+                else {
+                localStorage.setItem('tasks', task);
+                    showTasks();
+                }
+            } 
+    }
+    
+ //    adds focus to the input text field on load so the user can immediately add tasks 
+    
+    window.onload = function () {
+        document.getElementById('tostore').focus();
+        showTasks();
+    }
+    
+   
+</script>
+</body>
+</html>
